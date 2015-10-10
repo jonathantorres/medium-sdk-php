@@ -4,7 +4,6 @@ This is where your library description should go. Try to limit it to a paragraph
 
 #### Installation via Composer
 ``` bash
-$ composer require jonathantorres/medium-sdk-php
 ```
 
 #### Changelog
