@@ -2,9 +2,7 @@ MediumSdkPhp
 ================
 This is where your library description should go. Try to limit it to a paragraph or two.
 
-#### Installation via Composer
-``` bash
-```
+#### Installation
 
 #### Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information.
