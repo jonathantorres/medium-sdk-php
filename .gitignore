@@ -1,0 +1,8 @@
+# composer
+/vendor/
+phpunit.xml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
