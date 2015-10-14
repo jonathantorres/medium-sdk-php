@@ -20,18 +20,51 @@ class MediumTest extends PHPUnit
 
     public function testConnectToApiInConstructor()
     {
-        $medium = new Medium('ACCESS-TOKEN');
+        $credentials = [
+            'client-id' => 'CLIENT-ID',
+            'client-secret' => 'CLIENT-SECRET',
+            'redirect-url' => 'http://someurl.com/callback',
+            'state' => 'somesecret',
+            'scopes' => 'scope1, scope2',
+        ];
 
-        $this->assertNotNull($medium->getAccessToken());
-        $this->assertEquals('ACCESS-TOKEN', $medium->getAccessToken());
+        $medium = new Medium($credentials);
+
+        $this->assertEquals('CLIENT-ID', $medium->getClientId());
+        $this->assertEquals('CLIENT-SECRET', $medium->getClientSecret());
     }
 
     public function testConnectToApiWithConnectMethod()
     {
-        $this->medium->connect('ACCESS-TOKEN');
+        $credentials = [
+            'client-id' => 'CLIENT-ID',
+            'client-secret' => 'CLIENT-SECRET',
+            'redirect-url' => 'http://someurl.com/callback',
+            'state' => 'somesecret',
+            'scopes' => 'scope1, scope2',
+        ];
+
+        $medium = new Medium();
+        $medium->connect($credentials);
+
+        $this->assertEquals('CLIENT-ID', $medium->getClientId());
+        $this->assertEquals('CLIENT-SECRET', $medium->getClientSecret());
+    }
+
+    public function testConnectToApiInConstructorUsingSelfIssuedAccessToken()
+    {
+        $medium = new Medium('SELF-ISSUED-ACCESS-TOKEN');
+
+        $this->assertNotNull($medium->getAccessToken());
+        $this->assertEquals('SELF-ISSUED-ACCESS-TOKEN', $medium->getAccessToken());
+    }
+
+    public function testConnectToApiWithConnectMethodUsingSelfIssuedAccessToken()
+    {
+        $this->medium->connect('SELF-ISSUED-ACCESS-TOKEN');
 
         $this->assertNotNull($this->medium->getAccessToken());
-        $this->assertEquals('ACCESS-TOKEN', $this->medium->getAccessToken());
+        $this->assertEquals('SELF-ISSUED-ACCESS-TOKEN', $this->medium->getAccessToken());
     }
 
     public function testGetAuthenticatedUser()

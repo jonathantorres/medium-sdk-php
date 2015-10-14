@@ -21,31 +21,64 @@ class Medium
     private $accessToken;
 
     /**
+     * Api client id.
+     *
+     * @var string
+     */
+    private $clientId;
+
+    /**
+     * Api client secret
+     *
+     * @var string
+     */
+    private $clientSecret;
+
+    /**
+     * Authentication callback url.
+     *
+     * @var string
+     */
+    private $redirectUrl;
+
+    /**
+     * State id to prevent request forgery.
+     *
+     * @var string
+     */
+    private $state;
+
+    /**
+     * Api access scopes.
+     *
+     * @var string
+     */
+    private $scopes;
+
+    /**
      * Initialize.
      *
-     * @param string $accessToken
+     * @param mixed $credentials
      *
      * @return void
      */
-    public function __construct($accessToken = null)
+    public function __construct($credentials = null)
     {
-        if (!is_null($accessToken)) {
-            $this->accessToken = $accessToken;
-            $this->setUpApiClient();
+        if (!is_null($credentials)) {
+            $this->setUpCredentials($credentials);
         }
     }
 
     /**
-     * Connect to the api using the access token.
+     * Connect to the api using credentials.
      *
-     * @param string $accessToken
+     * @param mixed $credentials
      *
-     * @return boolean
+     * @return void
      */
-    public function connect($accessToken)
+    public function connect($credentials)
     {
-        $this->accessToken = $accessToken;
-        $this->setUpApiClient();
+        $this->setUpCredentials($credentials);
     }
 
     /**
@@ -121,6 +154,26 @@ class Medium
     }
 
     /**
+     * Get the api client id.
+     *
+     * @return string
+     */
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+    /**
+     * Get the api client secret.
+     *
+     * @return string
+     */
+    public function getClientSecret()
+    {
+        return $this->clientSecret;
+    }
+
+    /**
      * Set the api client instance.
      *
      * @param mixed $client
@@ -133,6 +186,28 @@ class Medium
     public function setClient($client)
     {
         $this->client = $client;
+    }
+
+    /**
+     * Setup initial api credentials.
+     *
+     * @param mixed $credentials
+     *
+     * @return void
+     */
+    private function setUpCredentials($credentials)
+    {
+        if (is_array($credentials)) {
+            // using full credentials
+            $this->clientId = $credentials['client-id'];
+            $this->clientSecret = $credentials['client-secret'];
+            $this->redirectUrl = $credentials['redirect-url'];
+            $this->state = $credentials['state'];
+            $this->scopes = $credentials['scopes'];
+        } else {
+            // using self issued access token
+            $this->accessToken = $credentials;
+        }
     }
 
     /**
