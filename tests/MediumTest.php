@@ -88,6 +88,29 @@ class MediumTest extends PHPUnit
         $this->assertEquals($expectedUrl, $authenticationUrl);
     }
 
+    public function testAuthentication()
+    {
+        $credentials = [
+            'client-id' => 'CLIENT-ID',
+            'client-secret' => 'CLIENT-SECRET',
+            'redirect-url' => 'http://someurl.com/callback',
+            'state' => 'somesecret',
+            'scopes' => 'scope1,scope2',
+        ];
+
+        $this->mediumClient->shouldReceive('requestAccessToken')->once()
+                           ->with('1234567890', 'CLIENT-ID', 'CLIENT-SECRET', 'http://someurl.com/callback')
+                           ->andReturn('ACCESS-TOKEN');
+
+        $authorizationCode = '1234567890';
+        $medium = new Medium();
+        $medium->connect($credentials);
+        $medium->setClient($this->mediumClient);
+        $medium->authenticate($authorizationCode);
+
+        $this->assertEquals('ACCESS-TOKEN', $medium->getAccessToken());
+    }
+
     public function testGetAuthenticatedUser()
     {
         $this->mediumClient->shouldReceive('makeRequest')->once()

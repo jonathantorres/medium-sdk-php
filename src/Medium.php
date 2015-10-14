@@ -66,6 +66,7 @@ class Medium
     {
         if (!is_null($credentials)) {
             $this->setUpCredentials($credentials);
+            $this->setUpApiClient();
         }
     }
 
@@ -79,6 +80,7 @@ class Medium
     public function connect($credentials)
     {
         $this->setUpCredentials($credentials);
+        $this->setUpApiClient();
     }
 
     /**
@@ -97,6 +99,24 @@ class Medium
         ];
 
         return 'https://medium.com/m/oauth/authorize?' . http_build_query($params);
+    }
+
+    /**
+     * Get an access token (authenticate) from the user
+     * to make requests to medium's api using the authorization code.
+     *
+     * @param string $authorizationCode
+     *
+     * @return void
+     */
+    public function authenticate($authorizationCode)
+    {
+        $this->accessToken = $this->client->requestAccessToken(
+            $authorizationCode,
+            $this->clientId,
+            $this->clientSecret,
+            $this->redirectUrl
+        );
     }
 
     /**
@@ -235,6 +255,6 @@ class Medium
      */
     private function setUpApiClient()
     {
-        $this->client = new Client($this->accessToken);
+        $this->client = new Client();
     }
 }
