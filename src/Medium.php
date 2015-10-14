@@ -82,6 +82,24 @@ class Medium
     }
 
     /**
+     * Get the url to authenticate the user to medium.
+     *
+     * @return string
+     */
+    public function getAuthenticationUrl()
+    {
+        $params = [
+            'client_id' => $this->clientId,
+            'scope' => $this->scopes,
+            'state' => $this->state,
+            'response_type' => 'code',
+            'redirect_uri' => $this->redirectUrl,
+        ];
+
+        return 'https://medium.com/m/oauth/authorize?' . http_build_query($params);
+    }
+
+    /**
      * Get the current authenticated user object.
      *
      * @return StdClass
