@@ -21,16 +21,6 @@ class Client
     private $client;
 
     /**
-     * Initialize.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
-
-    /**
      * Ask medium for an access token
      * using the provided authorization code.
      *
@@ -80,15 +70,13 @@ class Client
     }
 
     /**
-     * Set up client to make authenticated requests.
+     * Authenticate client to make authenticated requests.
      *
      * @param string $accessToken
      *
-     * @todo Move this somewhere else ;)
-     *
      * @return void
      */
-    public function setUpToMakeRequests($accessToken)
+    public function authenticate($accessToken)
     {
         $this->client = new GuzzleClient([
             'base_uri' => $this->url,

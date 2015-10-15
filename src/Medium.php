@@ -66,7 +66,7 @@ class Medium
     {
         if (!is_null($credentials)) {
             $this->setUpCredentials($credentials);
-            $this->setUpApiClient();
+            $this->setBasicApiClient();
         }
     }
 
@@ -80,7 +80,7 @@ class Medium
     public function connect($credentials)
     {
         $this->setUpCredentials($credentials);
-        $this->setUpApiClient();
+        $this->setBasicApiClient();
     }
 
     /**
@@ -117,6 +117,8 @@ class Medium
             $this->clientSecret,
             $this->redirectUrl
         );
+
+        $this->client->authenticate($this->accessToken);
     }
 
     /**
@@ -265,11 +267,12 @@ class Medium
     }
 
     /**
-     * Set up medium's api client.
+     * Minimal setup for medium's api client.
+     * Just get it ready to request for access tokens.
      *
      * @return void
      */
-    private function setUpApiClient()
+    private function setBasicApiClient()
     {
         $this->client = new Client();
     }
