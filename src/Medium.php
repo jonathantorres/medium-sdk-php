@@ -120,6 +120,22 @@ class Medium
     }
 
     /**
+     * Request a new access token using the refresh token.
+     *
+     * @param string $refreshToken
+     *
+     * @return string
+     */
+    public function exchangeRefreshToken($refreshToken)
+    {
+        return $this->client->exchangeRefreshToken(
+            $refreshToken,
+            $this->clientId,
+            $this->clientSecret
+        );
+    }
+
+    /**
      * Get the current authenticated user object.
      *
      * @return StdClass

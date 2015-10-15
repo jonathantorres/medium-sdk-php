@@ -43,16 +43,6 @@ class Client
      */
     public function requestAccessToken($authorizationCode, $clientId, $clientSecret, $redirectUrl)
     {
-        $client = new GuzzleClient([
-            'base_uri' => $this->url,
-            'exceptions' => false,
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'Accept-Charset' => 'utf-8',
-            ],
-        ]);
-
         $data = [
             'form_params' => [
                 'code' => $authorizationCode,
@@ -63,9 +53,30 @@ class Client
             ],
         ];
 
-        $response = $client->request('POST', 'tokens', $data);
+        return $this->retrieveAccessToken($data);
+    }
 
-        return json_decode($response->getBody())->access_token;
+    /**
+     * Request a new access token using the refresh token.
+     *
+     * @param string $refreshToken
+     * @param string $clientId
+     * @param string $clientSecret
+     *
+     * @return string
+     */
+    public function exchangeRefreshToken($refreshToken, $clientId, $clientSecret)
+    {
+        $data = [
+            'form_params' => [
+                'refresh_token' => $refreshToken,
+                'client_id' => $clientId,
+                'client_secret' => $clientSecret,
+                'grant_type' => 'refresh_token',
+            ],
+        ];
+
+        return $this->retrieveAccessToken($data);
     }
 
     /**
@@ -105,5 +116,29 @@ class Client
         $response = $this->client->request($method, $endpoint, $data);
 
         return json_decode($response->getBody());
+    }
+
+    /**
+     * Retrieve an access token.
+     *
+     * @param array $data
+     *
+     * @return string
+     */
+    private function retrieveAccessToken(array $data)
+    {
+        $client = new GuzzleClient([
+            'base_uri' => $this->url,
+            'exceptions' => false,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Accept-Charset' => 'utf-8',
+            ],
+        ]);
+
+        $response = $client->request('POST', 'tokens', $data);
+
+        return json_decode($response->getBody())->access_token;
     }
 }
