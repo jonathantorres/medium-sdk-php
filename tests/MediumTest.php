@@ -101,6 +101,8 @@ class MediumTest extends PHPUnit
         $this->mediumClient->shouldReceive('requestAccessToken')->once()
                            ->with('1234567890', 'CLIENT-ID', 'CLIENT-SECRET', 'http://someurl.com/callback')
                            ->andReturn('ACCESS-TOKEN');
+        $this->mediumClient->shouldReceive('authenticate')->once()
+                           ->with('ACCESS-TOKEN')->andReturnNull();
 
         $authorizationCode = '1234567890';
         $medium = new Medium();
@@ -136,9 +138,26 @@ class MediumTest extends PHPUnit
 
     public function testGetAuthenticatedUser()
     {
+        $credentials = [
+            'client-id' => 'CLIENT-ID',
+            'client-secret' => 'CLIENT-SECRET',
+            'redirect-url' => 'http://someurl.com/callback',
+            'state' => 'somesecret',
+            'scopes' => 'scope1,scope2',
+        ];
+
+        $this->mediumClient->shouldReceive('requestAccessToken')->once()
+                           ->with('1234567890', 'CLIENT-ID', 'CLIENT-SECRET', 'http://someurl.com/callback')
+                           ->andReturn('ACCESS-TOKEN');
+        $this->mediumClient->shouldReceive('authenticate')->once()
+                           ->with('ACCESS-TOKEN')->andReturnNull();
         $this->mediumClient->shouldReceive('makeRequest')->once()
                            ->with('GET', 'me')->andReturn(new StdClass);
+
+        $authorizationCode = '1234567890';
+        $this->medium->connect($credentials);
         $this->medium->setClient($this->mediumClient);
+        $this->medium->authenticate($authorizationCode);
 
         $user = $this->medium->getAuthenticatedUser();
         $this->assertNotNull($user);
@@ -146,6 +165,14 @@ class MediumTest extends PHPUnit
 
     public function testCreateUserPost()
     {
+        $credentials = [
+            'client-id' => 'CLIENT-ID',
+            'client-secret' => 'CLIENT-SECRET',
+            'redirect-url' => 'http://someurl.com/callback',
+            'state' => 'somesecret',
+            'scopes' => 'scope1,scope2',
+        ];
+
         $postData = [
             'title' => 'Post title',
             'contentFormat' => 'html',
@@ -155,9 +182,18 @@ class MediumTest extends PHPUnit
 
         $requestData['form_params'] = $postData;
 
+        $this->mediumClient->shouldReceive('requestAccessToken')->once()
+                           ->with('1234567890', 'CLIENT-ID', 'CLIENT-SECRET', 'http://someurl.com/callback')
+                           ->andReturn('ACCESS-TOKEN');
+        $this->mediumClient->shouldReceive('authenticate')->once()
+                           ->with('ACCESS-TOKEN')->andReturnNull();
         $this->mediumClient->shouldReceive('makeRequest')->once()
                            ->with('POST', 'users/12345/posts', $requestData)->andReturn(new StdClass);
+
+        $authorizationCode = '1234567890';
+        $this->medium->connect($credentials);
         $this->medium->setClient($this->mediumClient);
+        $this->medium->authenticate($authorizationCode);
 
         $post = $this->medium->createPost('12345', $postData);
         $this->assertNotNull($post);
@@ -165,6 +201,14 @@ class MediumTest extends PHPUnit
 
     public function testUploadImage()
     {
+        $credentials = [
+            'client-id' => 'CLIENT-ID',
+            'client-secret' => 'CLIENT-SECRET',
+            'redirect-url' => 'http://someurl.com/callback',
+            'state' => 'somesecret',
+            'scopes' => 'scope1,scope2',
+        ];
+
         $requestData = [
             'multipart' => [
                 [
@@ -175,9 +219,18 @@ class MediumTest extends PHPUnit
             ]
         ];
 
+        $this->mediumClient->shouldReceive('requestAccessToken')->once()
+                           ->with('1234567890', 'CLIENT-ID', 'CLIENT-SECRET', 'http://someurl.com/callback')
+                           ->andReturn('ACCESS-TOKEN');
+        $this->mediumClient->shouldReceive('authenticate')->once()
+                           ->with('ACCESS-TOKEN')->andReturnNull();
         $this->mediumClient->shouldReceive('makeRequest')->once()
                            ->with('POST', 'images', $requestData)->andReturn(new StdClass);
+
+        $authorizationCode = '1234567890';
+        $this->medium->connect($credentials);
         $this->medium->setClient($this->mediumClient);
+        $this->medium->authenticate($authorizationCode);
 
         $image = $this->medium->uploadImage('imagedata', 'myimage.jpg');
         $this->assertNotNull($image);
