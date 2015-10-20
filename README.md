@@ -79,7 +79,6 @@ Provide the id of the authenticated user and the post data. This will return an 
     $post->data->tags;
     $post->data->url;
     $post->data->canonicalUrl;
-    $post->data->canonicalUrl;
     $post->data->publishStatus;
     $post->data->publishedAt;
     $post->data->license;
