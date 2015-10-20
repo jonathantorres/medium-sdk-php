@@ -1,7 +1,7 @@
 {
     "name": "jonathantorres/medium-sdk",
-    "description": "PHP project.",
-    "keywords": [],
+    "description": "Open source SDK for integrating Medium's OAuth2 API.",
+    "keywords": ["medium", "api", "sdk"],
     "license": "MIT",
     "authors": [
         {
