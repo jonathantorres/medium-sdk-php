@@ -1,4 +1,4 @@
 # Changelog
 
-#### vMAJOR.MINOR.PATCH `2015-10-10`
+#### v0.0.1 `2015-10-19`
 - First release.
