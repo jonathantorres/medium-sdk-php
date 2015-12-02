@@ -172,7 +172,7 @@ class Medium
     }
 
     /**
-     * Create a post.
+     * Create a post on the authenticated user's profile.
      *
      * @param string $authorId
      * @param array $data
