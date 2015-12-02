@@ -110,6 +110,34 @@ class MediumTest extends PHPUnit
         $this->assertNotNull($user);
     }
 
+    public function testGetUserPublications()
+    {
+        $this->authenticationMocks();
+        $this->mediumClient->shouldReceive('makeRequest')->once()
+                           ->with('GET', 'users/12345/publications')->andReturn(new StdClass);
+
+        $this->medium->connect($this->credentials);
+        $this->medium->setClient($this->mediumClient);
+        $this->medium->authenticate($this->authorizationCode);
+
+        $publications = $this->medium->publications('12345');
+        $this->assertNotNull($publications);
+    }
+
+    public function testGetPublicationContributors()
+    {
+        $this->authenticationMocks();
+        $this->mediumClient->shouldReceive('makeRequest')->once()
+                           ->with('GET', 'publications/12345/contributors')->andReturn(new StdClass);
+
+        $this->medium->connect($this->credentials);
+        $this->medium->setClient($this->mediumClient);
+        $this->medium->authenticate($this->authorizationCode);
+
+        $contributors = $this->medium->contributors('12345');
+        $this->assertNotNull($contributors);
+    }
+
     public function testCreateUserPost()
     {
         $postData = [

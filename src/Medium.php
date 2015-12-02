@@ -148,6 +148,30 @@ class Medium
     }
 
     /**
+     * Get the specified user publications.
+     *
+     * @param string $userId
+     *
+     * @return StdClass
+     */
+    public function publications($userId)
+    {
+        return $this->client->makeRequest('GET', 'users/' . $userId . '/publications');
+    }
+
+    /**
+     * Get the contributors of the specified publication.
+     *
+     * @param string $publicationId
+     *
+     * @return StdClass
+     */
+    public function contributors($publicationId)
+    {
+        return $this->client->makeRequest('GET', 'publications/' . $publicationId . '/contributors');
+    }
+
+    /**
      * Create a post.
      *
      * @param string $authorId
