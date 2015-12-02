@@ -189,6 +189,23 @@ class Medium
     }
 
     /**
+     * Create a post under a publication on the authenticated user's profile.
+     *
+     * @param string $publicationId
+     * @param array $data
+     *
+     * @return StdClass
+     */
+    public function createPostUnderPublication($publicationId, array $data)
+    {
+        $requestData = [
+            'form_params' => $data,
+        ];
+
+        return $this->client->makeRequest('POST', 'publications/' . $publicationId . '/posts', $requestData);
+    }
+
+    /**
      * Upload an image.
      *
      * @param string $image

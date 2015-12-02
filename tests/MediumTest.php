@@ -161,6 +161,29 @@ class MediumTest extends PHPUnit
         $this->assertNotNull($post);
     }
 
+    public function testCreateUserPostUnderAPublication()
+    {
+        $postData = [
+            'title' => 'Post title',
+            'contentFormat' => 'html',
+            'content' => 'This is my post content.',
+            'publishStatus' => 'draft',
+        ];
+
+        $requestData['form_params'] = $postData;
+
+        $this->authenticationMocks();
+        $this->mediumClient->shouldReceive('makeRequest')->once()
+                           ->with('POST', 'publications/12345/posts', $requestData)->andReturn(new StdClass);
+
+        $this->medium->connect($this->credentials);
+        $this->medium->setClient($this->mediumClient);
+        $this->medium->authenticate($this->authorizationCode);
+
+        $post = $this->medium->createPostUnderPublication('12345', $postData);
+        $this->assertNotNull($post);
+    }
+
     public function testUploadImage()
     {
         $requestData = [
