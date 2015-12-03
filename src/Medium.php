@@ -316,5 +316,11 @@ class Medium
     private function setBasicApiClient()
     {
         $this->client = new Client();
+
+        // if using a self issued access token,
+        // just authenticate the user right now
+        if (!is_null($this->accessToken)) {
+            $this->client->authenticate($this->accessToken);
+        }
     }
 }
