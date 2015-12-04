@@ -7,7 +7,7 @@ Open source SDK for integrating [Medium](https://medium.com)'s OAuth2 API into y
 composer require jonathantorres/medium-sdk
 ```
 
-## Usage
+## Authentication
 Initialize the SDK with your client credentials:
 ```php
     use JonathanTorres\MediumSdk\Medium;
@@ -31,9 +31,12 @@ You can also use the `connect` method.
     $medium->connect($credentials);
 ```
 
+#### Browser-based authentication
 Request the authentication url, this url will take the user to medium's authentication page. If successfull, it will return an authorization code.
 ```php
-    $medium->getAuthenticationUrl();
+    $authUrl = $medium->getAuthenticationUrl();
+
+    <a href="<?php echo $authUrl; ?>">Authenticate with Medium</a>
 ```
 
 Grab the authorization code from the url and use the `authenticate` method to be able to make requests to the API. Now you should be able to start making requests.
@@ -41,6 +44,27 @@ Grab the authorization code from the url and use the `authenticate` method to be
     $authorizationCode = $_GET['code'];
     $medium->authenticate($authorizationCode);
 ```
+
+#### Generate a new access token
+Access tokens are valid for 60 days. Once it expires, you can request a new access token using your refresh token. Refresh tokens do not expire. You can request a new access token using your refresh token.
+```php
+    $accessToken = $medium->exchangeRefreshToken($refreshToken);
+    $medium->setAccessToken($accessToken);
+```
+
+#### Authenticating with a self-issued access token
+Medium recommends to use browser-based authentication, but you can also make requests to the API using a self-issued access token generated from your Medium [settings page](https://medium.com/me/settings). These types of tokens never expire. Once you have it you can authenticate using this access token.
+```php
+    $medium = new Medium('SELF-ISSUED-ACCESS-TOKEN');
+```
+
+You can also use the `connect` method.
+```php
+    $medium = new Medium();
+    $medium->connect('SELF-ISSUED-ACCESS-TOKEN');
+```
+
+Now you should be ready to start making requests to the API using your self issued access token.
 
 ## Users
 #### Get the authenticated user details.
@@ -112,27 +136,6 @@ Provide an image resource, the image name and the extension. This will return an
     $image = $medium->uploadImage($imageResource, 'image-filename.jpg');
 
     echo 'Uploaded image ' . $image->data->url . ' succesfully.';
-```
-
-### Authenticating with an self-issued access token
-I would recommend to use the browser-based authentication, but you can also make requests to the API using a self-issued access token generated from your Medium [settings page](https://medium.com/me/settings). Once you have it you can authenticate using this access token.
-```php
-    $medium = new Medium('SELF-ISSUED-ACCESS-TOKEN');
-```
-
-You can also use the `connect` method.
-```php
-    $medium = new Medium();
-    $medium->connect('SELF-ISSUED-ACCESS-TOKEN');
-```
-
-Now you should be ready to start making requests to the API using your generated access token.
-
-### Generate a new access token
-Access tokens are valid for 60 days. Once it expires, you can request a new access token using your refresh token. Refresh tokens do not expire. You can request a new access token using your refresh token.
-```php
-    $accessToken = $medium->exchangeRefreshToken($refreshToken);
-    $medium->setAccessToken($accessToken);
 ```
 
 ### To-do's
