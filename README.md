@@ -72,8 +72,9 @@ This will return an array of users that are allowed to publish under the specifi
     }
 ```
 
-### Posts
-Creates a post on the authenticated user's profile.
+## Posts
+#### Creating a post
+This will create a post on the authenticated user's profile. Provide the id of the authenticated user and the post data. This will return an object with the created post's details.
 ```php
     $user = $medium->getAuthenticatedUser();
     $data = [
@@ -84,33 +85,33 @@ Creates a post on the authenticated user's profile.
     ];
 
     $post = $medium->createPost($user->data->id, $data);
+
+    echo 'Created post: ' . $post->data->title;
 ```
 
-Provide the id of the authenticated user and the post data. This will return an object with the created post's details.
+#### Creating a post under a publication
+This will create a post on the authenticated user's profile but also associate it with a publication. Provide the same data as creating a post. The response will also be the same with the exception of adding the `publicationId` field.
 ```php
-    $post->data->id;
-    $post->data->title;
-    $post->data->authorId;
-    $post->data->tags;
-    $post->data->url;
-    $post->data->canonicalUrl;
-    $post->data->publishStatus;
-    $post->data->publishedAt;
-    $post->data->license;
-    $post->data->licenseUrl;
+    $data = [
+        'title' => 'Post title',
+        'contentFormat' => 'html',
+        'content' => 'This is my post content.',
+        'publishStatus' => 'draft',
+    ];
+
+    $post = $medium->createPostUnderPublication($publicationId, $data);
+
+    echo 'Created post: ' . $post->data->title . ' under the publication ' . $post->data->publicationId;
 ```
 
-### Images
-Uploading an image.
+## Images
+#### Uploading an image.
+Provide an image resource, the image name and the extension. This will return an object with the uploaded image's data.
 ```php
     $imageResource = fopen('path/to/your/image', 'r');
-    $image = $medium->uploadImage($image, 'image-filename.jpg');
-```
+    $image = $medium->uploadImage($imageResource, 'image-filename.jpg');
 
-Provide an image resource and the name and extension of the image. This will return an object with the uploaded image's data.
-```php
-    $image->data->url;
-    $image->data->md5;
+    echo 'Uploaded image ' . $image->data->url . ' succesfully.';
 ```
 
 ### Authenticating with an self-issued access token
