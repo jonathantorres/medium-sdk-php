@@ -2,12 +2,12 @@ Medium SDK for PHP
 ================
 Open source SDK for integrating [Medium](https://medium.com)'s OAuth2 API into your PHP application. Please note that Medium's API is still on an early stage and this implementation is not final. Breaking changes will happen. This SDK is unofficial. Medium's API documentation can be found [here](https://github.com/Medium/medium-api-docs).
 
-### Installation
+## Installation
 ```bash
 composer require jonathantorres/medium-sdk
 ```
 
-### Usage
+## Usage
 Initialize the SDK with your client credentials:
 ```php
     use JonathanTorres\MediumSdk\Medium;
@@ -42,19 +42,13 @@ Grab the authorization code from the url and use the `authenticate` method to be
     $medium->authenticate($authorizationCode);
 ```
 
-### Users
-Get the authenticated user details.
-```php
-    $user = $medium->getAuthenticatedUser();
-```
-
+## Users
+#### Get the authenticated user details.
 This will return an object with the user's details:
 ```php
-    $user->data->id;
-    $user->data->username;
-    $user->data->name;
-    $user->data->url;
-    $user->data->imageUrl;
+    $user = $medium->getAuthenticatedUser();
+
+    echo 'Authenticated user name is: ' . $user->name;
 ```
 
 ### Posts
