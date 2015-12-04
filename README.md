@@ -51,6 +51,27 @@ This will return an object with the user's details:
     echo 'Authenticated user name is: ' . $user->name;
 ```
 
+## Publications
+#### List the specified user publications
+This will return an array of objects that represent a publication that the specified user is related to in some way.
+```php
+    $publications = $medium->publications($userId)->data;
+
+    foreach($publications as $publication) {
+        echo 'Publication name: ' . $publication->name;
+    }
+```
+
+#### List the contributors for the specified publication
+This will return an array of users that are allowed to publish under the specified publication.
+```php
+    $contributors = $medium->contributors($publicationId)->data;
+
+    foreach($contributors as $contributor) {
+        echo 'User ' . $contributor->userId . ' is an ' . $contributor->role . ' on ' . $contributor->publicationId;
+    }
+```
+
 ### Posts
 Creates a post on the authenticated user's profile.
 ```php
