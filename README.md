@@ -138,11 +138,10 @@ Provide an image resource, the image name and the extension. This will return an
     echo 'Uploaded image ' . $image->data->url . ' succesfully.';
 ```
 
-### To-do's
+## To-do's
 - Laravel Service Provider.
 - Symfony Bundle.
 - Integration tests (WIP)
-- Examples.
 
 ### Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information.
