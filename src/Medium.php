@@ -248,6 +248,7 @@ class Medium
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
+        $this->client->authenticate($this->accessToken);
     }
 
     /**
