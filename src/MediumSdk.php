@@ -5,7 +5,7 @@ namespace JonathanTorres\MediumSdk;
 class MediumSdk
 {
     /**
-     * Client version
+     * SDK version
      */
     const VERSION = '0.1.0';
 }
