@@ -160,6 +160,19 @@ Start the included php server on the examples folder:
 cd medium-sdk-php/examples && php -S localhost:8888
 ```
 
+## Run tests
+Tests are written with [http://phpunit.de](PHPUnit).
+
+After cloning your repo:
+```bash
+git clone git@github.com:jonathantorres/medium-sdk-php.git
+```
+
+Just run `composer test` on the project's root directory:
+```bash
+cd medium-sdk-php && composer test
+```
+
 ## To-do's
 - Laravel Service Provider.
 - Symfony Bundle.
