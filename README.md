@@ -161,7 +161,7 @@ cd medium-sdk-php/examples && php -S localhost:8888
 ```
 
 ## Run tests
-Tests are written with [http://phpunit.de](PHPUnit).
+Tests are written with [PHPUnit](http://phpunit.de).
 
 After cloning your repo:
 ```bash
