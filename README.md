@@ -138,6 +138,28 @@ Provide an image resource, the image name and the extension. This will return an
     echo 'Uploaded image ' . $image->data->url . ' succesfully.';
 ```
 
+## Running the examples
+After cloning your repo:
+```bash
+git clone git@github.com:jonathantorres/medium-sdk-php.git
+```
+
+Add your API credentials on `examples/credentials.php`
+```php
+    $credentials = [
+        'client-id' => 'YOUR-CLIENT-ID',
+        'client-secret' => 'YOUR-CLIENT-SECRET',
+        'redirect-url' => 'http://localhost:8888/callback.php',
+        'state' => 'secret',
+        'scopes' => 'basicProfile,publishPost,listPublications',
+    ];
+```
+
+Start the included php server on the examples folder:
+```bash
+cd medium-sdk-php/examples && php -S localhost:8888
+```
+
 ## To-do's
 - Laravel Service Provider.
 - Symfony Bundle.
