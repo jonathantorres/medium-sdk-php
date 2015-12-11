@@ -66,6 +66,7 @@ class MediumTest extends PHPUnit
         $expectedUrl = 'https://medium.com/m/oauth/authorize?client_id=CLIENT-ID&' .
                        'scope=scope1%2Cscope2&state=somesecret&response_type=code&' .
                        'redirect_uri=http%3A%2F%2Fsomeurl.com%2Fcallback';
+
         $authenticationUrl = $this->medium->getAuthenticationUrl();
 
         $this->assertEquals($expectedUrl, $authenticationUrl);
