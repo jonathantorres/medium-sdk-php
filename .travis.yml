@@ -1,14 +1,14 @@
 language: php
-
 php:
-  - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
-
+- 5.5
+- 5.6
+- 7.0
+- hhvm
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --prefer-source --no-interaction
-
+- travis_retry composer self-update
+- travis_retry composer install --prefer-source --no-interaction
 script:
-  - composer test
+- composer test
+env:
+  matrix:
+    secure: dTuBTRGaNLixBsvUH3Z6xfFwigRuRayduP2+1Wlz/h3wFQAwz8pExU7d+54XWdCM+V5by0Xv8lNwg+Kv3KzD+ULGb8hTJXM4O8Oh6/6juFhpd8DOydLRqfXqC2zHSVITFUrbmQz+gCi2xlmZ/3KWVUe6jUpzuVyr+Jv6N3apTd1t99ndCfIdB/WMnIm/xxQuSp6B9EzxxH31BuStFlroJRpaWZkDkBKvyznkWUyH8rqTPcuf0SElphXhTkz3HbABNa0ekGMEviTWPe/99+ECffuBCvi+oj+h/sJ5g70hfhysX4zAn5koFxDza59TblYgQkSHedljtytLlGEImW0jWcg73W2JFxGgzOm6CzNjdKYLtrBx/63FztBH0K8mIOe5qfBcYlyScr/YHiGFUmiW3H5dui/5veFvubFElyzL9nTFXyXlbvHSHEAZPpKV55zGQW8BSI2WjxOPeAl8Ep1Gy4p6/PeCdq/9SSYVBcWCswz9kGeiafklZSdKoQ5eitXeKRV/xK0agxRdQtD48Y3MwcxYRLCVFAR7G7CPvdHWuvCe5vcT6/a3BgeEd+uwuPOQy/HDyhbwmuc1UEgSM0jMtq5EkGDpTkaB0RGKpFx8b6P+QHMTkzrql+IqydKbk+V3MyYRrMy8JprdNS5jgAhL2XC2lCA/V+MtnLLwIfFj5DM=
