@@ -170,9 +170,10 @@ After cloning your repo:
 git clone git@github.com:jonathantorres/medium-sdk-php.git
 ```
 
-Just run `composer test` on the project's root directory:
+Generate a self-issued access token from your Medium [settings page](https://medium.com/me/settings). You need this to run the integration tests. Then, just run `composer test` on the project's root directory:
 ```bash
-cd medium-sdk-php && composer test
+cd medium-sdk-php
+export MEDIUM_TOKEN=YOUR_ACCESS_TOKEN; composer test
 ```
 
 ## To-do's
