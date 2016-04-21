@@ -178,7 +178,6 @@ cd medium-sdk-php && composer test
 ## To-do's
 - Laravel Service Provider.
 - Symfony Bundle.
-- Integration tests (WIP)
 
 ### Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information.
