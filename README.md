@@ -74,7 +74,7 @@ This will return an object with the user's details:
 ```php
     $user = $medium->getAuthenticatedUser();
 
-    echo 'Authenticated user name is: ' . $user->name;
+    echo 'Authenticated user name is: ' . $user->data->name;
 ```
 
 ## Publications
