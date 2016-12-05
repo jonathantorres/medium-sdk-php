@@ -24,6 +24,7 @@ class Client
      * Ask medium for an access token
      * using the provided authorization code.
      *
+     * @deprecated 
      * @param string $authorizationCode
      * @param string $clientId
      * @param string $clientSecret
@@ -44,6 +45,32 @@ class Client
         ];
 
         return $this->retrieveAccessToken($data);
+    }
+
+    /**
+     * Ask medium for tokens (include refreshToken)
+     * using the provided authorization code.
+     *
+     * @param string $authorizationCode
+     * @param string $clientId
+     * @param string $clientSecret
+     * @param string $redirectUrl
+     *
+     * @return array
+     */
+    public function requestTokensObject($authorizationCode, $clientId, $clientSecret, $redirectUrl)
+    {
+        $data = [
+            'form_params' => [
+                'code' => $authorizationCode,
+                'client_id' => $clientId,
+                'client_secret' => $clientSecret,
+                'grant_type' => 'authorization_code',
+                'redirect_uri' => $redirectUrl,
+            ],
+        ];
+
+        return (array) $this->retrieveTokens($data);
     }
 
     /**
@@ -115,6 +142,19 @@ class Client
      */
     private function retrieveAccessToken(array $data)
     {
+        $tokens     = $this->retrieveTokens();
+        return $tokens->access_token;
+    }
+
+    /**
+     * Retrieve all tokens
+     *
+     * @param array $data
+     *
+     * @return string
+     */
+    private function retrieveTokens(array $data)
+    {
         $client = new GuzzleClient([
             'base_uri' => $this->url,
             'exceptions' => false,
@@ -127,6 +167,6 @@ class Client
 
         $response = $client->request('POST', 'tokens', $data);
 
-        return json_decode($response->getBody())->access_token;
+        return json_decode($response->getBody());
     }
 }

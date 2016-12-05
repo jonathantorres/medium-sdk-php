@@ -21,6 +21,13 @@ class Medium
     private $accessToken;
 
     /**
+     * Refresh token to request a new access token
+     *
+     * @var string
+     */
+    private $refreshToken;
+
+    /**
      * Api client id.
      *
      * @var string
@@ -109,16 +116,17 @@ class Medium
      *
      * @return void
      */
-    public function authenticate($authorizationCode)
+    public function authenticate($authorizationCode, $returnObject=false)
     {
-        $this->accessToken = $this->client->requestAccessToken(
+        $tokens = $this->client->requestTokensObject(
             $authorizationCode,
             $this->clientId,
             $this->clientSecret,
             $this->redirectUrl
         );
-
-        $this->client->authenticate($this->accessToken);
+        $this->accessToken  = $tokens['access_token'];
+        $this->refreshToken = $tokens['refresh_token'];
+        $this->client->authenticate($this->accessToken, $returnObject);
     }
 
     /**
@@ -249,6 +257,31 @@ class Medium
     {
         $this->accessToken = $accessToken;
         $this->client->authenticate($this->accessToken);
+    }
+
+    /**
+     * Get the refresh token.
+     *
+     * @return string
+     */
+    public function getRefreshToken()
+    {
+        return $this->refreshToken;
+    }
+
+    /**
+     * Set the refresh token.
+     *
+     * @param string $refreshToken
+     *
+     * @return void
+     */
+    public function setRefreshToken($refreshToken, $createNewToken=false)
+    {
+        $this->refreshToken = $refreshToken;
+        if($createNewToken){
+            $this->client->exchangeRefreshToken($this->refreshToken);
+        }
     }
 
     /**
