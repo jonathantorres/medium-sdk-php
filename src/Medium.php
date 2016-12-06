@@ -116,7 +116,7 @@ class Medium
      *
      * @return void
      */
-    public function authenticate($authorizationCode, $returnObject=false)
+    public function authenticate($authorizationCode)
     {
         $tokens = $this->client->requestTokensObject(
             $authorizationCode,
@@ -126,7 +126,7 @@ class Medium
         );
         $this->accessToken  = $tokens['access_token'];
         $this->refreshToken = $tokens['refresh_token'];
-        $this->client->authenticate($this->accessToken, $returnObject);
+        $this->client->authenticate($this->accessToken);
     }
 
     /**
@@ -280,7 +280,7 @@ class Medium
     {
         $this->refreshToken = $refreshToken;
         if($createNewToken){
-            $this->client->exchangeRefreshToken($this->refreshToken);
+            $this->exchangeRefreshToken($this->refreshToken);
         }
     }
 

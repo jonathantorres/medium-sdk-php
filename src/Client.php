@@ -142,7 +142,7 @@ class Client
      */
     private function retrieveAccessToken(array $data)
     {
-        $tokens     = $this->retrieveTokens();
+        $tokens     = $this->retrieveTokens($data);
         return $tokens->access_token;
     }
 
