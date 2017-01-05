@@ -109,7 +109,7 @@ class Medium
     }
 
     /**
-     * Get an access token (authenticate) from the user
+     * Get both the access and refresh token (authenticate) from the user
      * to make requests to medium's api using the authorization code.
      *
      * @param string $authorizationCode
@@ -118,14 +118,16 @@ class Medium
      */
     public function authenticate($authorizationCode)
     {
-        $tokens = $this->client->requestTokensObject(
+        $tokens = $this->client->requestTokens(
             $authorizationCode,
             $this->clientId,
             $this->clientSecret,
             $this->redirectUrl
         );
-        $this->accessToken  = $tokens['access_token'];
-        $this->refreshToken = $tokens['refresh_token'];
+
+        $this->accessToken = $tokens->access_token;
+        $this->refreshToken = $tokens->refresh_token;
+
         $this->client->authenticate($this->accessToken);
     }
 
@@ -276,12 +278,9 @@ class Medium
      *
      * @return void
      */
-    public function setRefreshToken($refreshToken, $createNewToken=false)
+    public function setRefreshToken($refreshToken)
     {
         $this->refreshToken = $refreshToken;
-        if($createNewToken){
-            $this->exchangeRefreshToken($this->refreshToken);
-        }
     }
 
     /**

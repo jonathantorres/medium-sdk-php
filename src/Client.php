@@ -21,18 +21,20 @@ class Client
     private $client;
 
     /**
-     * Ask medium for an access token
+     * Ask medium for the access and refresh token
      * using the provided authorization code.
      *
-     * @deprecated 
+     * @todo  This requestTokens() method uses some repeated code
+     *        exchangeRefreshToken(), refactor to make the code less redundant and re-usable
+     *
      * @param string $authorizationCode
      * @param string $clientId
      * @param string $clientSecret
      * @param string $redirectUrl
      *
-     * @return string
+     * @return StdClass
      */
-    public function requestAccessToken($authorizationCode, $clientId, $clientSecret, $redirectUrl)
+    public function requestTokens($authorizationCode, $clientId, $clientSecret, $redirectUrl)
     {
         $data = [
             'form_params' => [
@@ -44,37 +46,26 @@ class Client
             ],
         ];
 
-        return $this->retrieveAccessToken($data);
-    }
-
-    /**
-     * Ask medium for tokens (include refreshToken)
-     * using the provided authorization code.
-     *
-     * @param string $authorizationCode
-     * @param string $clientId
-     * @param string $clientSecret
-     * @param string $redirectUrl
-     *
-     * @return array
-     */
-    public function requestTokensObject($authorizationCode, $clientId, $clientSecret, $redirectUrl)
-    {
-        $data = [
-            'form_params' => [
-                'code' => $authorizationCode,
-                'client_id' => $clientId,
-                'client_secret' => $clientSecret,
-                'grant_type' => 'authorization_code',
-                'redirect_uri' => $redirectUrl,
+        $client = new GuzzleClient([
+            'base_uri' => $this->url,
+            'exceptions' => false,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Accept-Charset' => 'utf-8',
             ],
-        ];
+        ]);
 
-        return (array) $this->retrieveTokens($data);
+        $response = $client->request('POST', 'tokens', $data);
+
+        return json_decode($response->getBody());
     }
 
     /**
      * Request a new access token using the refresh token.
+     *
+     * @todo  This exchangeRefreshToken() method uses some repeated code
+     *        requestTokens(), refactor to make the code less redundant and re-usable
      *
      * @param string $refreshToken
      * @param string $clientId
@@ -93,7 +84,19 @@ class Client
             ],
         ];
 
-        return $this->retrieveAccessToken($data);
+        $client = new GuzzleClient([
+            'base_uri' => $this->url,
+            'exceptions' => false,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Accept-Charset' => 'utf-8',
+            ],
+        ]);
+
+        $response = $client->request('POST', 'tokens', $data);
+
+        return json_decode($response->getBody())->access_token;
     }
 
     /**
@@ -129,43 +132,6 @@ class Client
     public function makeRequest($method, $endpoint, array $data = [])
     {
         $response = $this->client->request($method, $endpoint, $data);
-
-        return json_decode($response->getBody());
-    }
-
-    /**
-     * Retrieve an access token.
-     *
-     * @param array $data
-     *
-     * @return string
-     */
-    private function retrieveAccessToken(array $data)
-    {
-        $tokens     = $this->retrieveTokens($data);
-        return $tokens->access_token;
-    }
-
-    /**
-     * Retrieve all tokens
-     *
-     * @param array $data
-     *
-     * @return string
-     */
-    private function retrieveTokens(array $data)
-    {
-        $client = new GuzzleClient([
-            'base_uri' => $this->url,
-            'exceptions' => false,
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'Accept-Charset' => 'utf-8',
-            ],
-        ]);
-
-        $response = $client->request('POST', 'tokens', $data);
 
         return json_decode($response->getBody());
     }
