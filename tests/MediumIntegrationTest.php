@@ -44,9 +44,9 @@ class MediumIntegrationTest extends PHPUnit
     public function testCreateUserPost()
     {
         $data = [
-            'title' => 'From PHP with real credentials man',
+            'title' => 'Post created from Medium SDK Integration Test',
             'contentFormat' => 'html',
-            'content' => 'This is coming from php buddy',
+            'content' => 'This is an automated test.',
             'publishStatus' => 'draft',
         ];
 
