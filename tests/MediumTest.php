@@ -211,9 +211,13 @@ class MediumTest extends PHPUnit
 
     private function authenticationMocks()
     {
-        $this->mediumClient->shouldReceive('requestAccessToken')->once()
+        $tokens = new StdClass();
+        $tokens->access_token = 'ACCESS-TOKEN';
+        $tokens->refresh_token = 'REFRESH-TOKEN';
+
+        $this->mediumClient->shouldReceive('requestTokens')->once()
                            ->with('1234567890', 'CLIENT-ID', 'CLIENT-SECRET', 'http://someurl.com/callback')
-                           ->andReturn('ACCESS-TOKEN');
+                           ->andReturn($tokens);
         $this->mediumClient->shouldReceive('authenticate')->once()
                            ->with('ACCESS-TOKEN')->andReturnNull();
     }
