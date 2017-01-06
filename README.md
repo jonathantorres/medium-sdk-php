@@ -55,6 +55,11 @@ Access tokens are valid for 60 days. Once it expires, you can request a new acce
     $medium->setAccessToken($accessToken);
 ```
 
+If you need to retrieve your refresh token after authentication, you can use the `getRefreshToken();` method.
+```php
+$refreshToken = $medium->getRefreshToken();
+```
+
 #### Authenticating with a self-issued access token
 Medium recommends to use browser-based authentication, but you can also make requests to the API using a self-issued access token generated from your Medium [settings page](https://medium.com/me/settings). These types of tokens never expire. Once you have it you can authenticate using this access token.
 ```php
