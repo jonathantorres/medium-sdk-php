@@ -1,5 +1,9 @@
 # Changelog
 
+#### v0.3.0 `2017-01-07`
+- `Added`
+    - Method `getRefreshToken();` to get the refresh token after authentication.
+
 #### v0.2.0 `2015-12-07`
 - `Added`
     - Methods `publications();` and `contributors();` to get publications and publication contributors.
