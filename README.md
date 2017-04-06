@@ -182,9 +182,8 @@ cd medium-sdk-php
 export MEDIUM_TOKEN=YOUR_ACCESS_TOKEN; composer test
 ```
 
-## To-do's
-- Laravel Service Provider.
-- Symfony Bundle.
+## Laravel Service Provider
+A Service Provider for the Laravel Framework is now available, you can grab it [here!](https://github.com/jonathantorres/laravel-medium-sdk)
 
 ### Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information.
