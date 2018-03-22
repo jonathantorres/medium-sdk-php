@@ -58,7 +58,7 @@ class Client
 
         $response = $client->request('POST', 'tokens', $data);
 
-        return json_decode($response->getBody());
+        return json_decode((string) $response->getBody());
     }
 
     /**
@@ -96,7 +96,7 @@ class Client
 
         $response = $client->request('POST', 'tokens', $data);
 
-        return json_decode($response->getBody())->access_token;
+        return json_decode((string) $response->getBody())->access_token;
     }
 
     /**
@@ -133,6 +133,6 @@ class Client
     {
         $response = $this->client->request($method, $endpoint, $data);
 
-        return json_decode($response->getBody());
+        return json_decode((string) $response->getBody());
     }
 }
