@@ -61,7 +61,14 @@ class Medium
      * @var string
      */
     private $scopes;
-
+    
+		/**
+		* Access token expiry date in unix timestamp.
+		*
+		* @var int64
+		*/
+		private $expires;
+    
     /**
      * Initialize.
      *
@@ -127,7 +134,8 @@ class Medium
 
         $this->accessToken = $tokens->access_token;
         $this->refreshToken = $tokens->refresh_token;
-
+        $this->expires = $tokens->expires_at;
+        
         $this->client->authenticate($this->accessToken);
     }
 
@@ -281,6 +289,16 @@ class Medium
     public function setRefreshToken($refreshToken)
     {
         $this->refreshToken = $refreshToken;
+    }
+    
+     /**
+     * Get the access token expiry.
+     *
+     * @return int64
+     */
+    public function getExpiry()
+    {
+	    return $this->expires;
     }
 
     /**
