@@ -4,10 +4,10 @@ namespace JonathanTorres\MediumSdk\Tests;
 
 use JonathanTorres\MediumSdk\Medium;
 use Mockery;
-use PHPUnit_Framework_TestCase as PHPUnit;
+use PHPUnit\Framework\TestCase;
 use StdClass;
 
-class MediumTest extends PHPUnit
+class MediumTest extends TestCase
 {
     protected $medium;
     protected $mediumClient;

@@ -3,9 +3,9 @@
 namespace JonathanTorres\MediumSdk\Tests;
 
 use JonathanTorres\MediumSdk\Medium;
-use PHPUnit_Framework_TestCase as PHPUnit;
+use PHPUnit\Framework\TestCase;
 
-class MediumIntegrationTest extends PHPUnit
+class MediumIntegrationTest extends TestCase
 {
     protected $medium;
     protected $authorId = '147563c42ee920bd60ef3e19d8d8e0001310828c192e0297e06ad991fad843b0d';
