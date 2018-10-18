@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
+        "php": "^5.5.0 || ^7.0",
         "guzzlehttp/guzzle": "^6.1"
     },
     "require-dev": {
