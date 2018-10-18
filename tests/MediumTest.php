@@ -214,6 +214,7 @@ class MediumTest extends TestCase
         $tokens = new StdClass();
         $tokens->access_token = 'ACCESS-TOKEN';
         $tokens->refresh_token = 'REFRESH-TOKEN';
+        $tokens->expires_at = time();
 
         $this->mediumClient->shouldReceive('requestTokens')->once()
                            ->with('1234567890', 'CLIENT-ID', 'CLIENT-SECRET', 'http://someurl.com/callback')
