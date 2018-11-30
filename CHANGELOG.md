@@ -1,5 +1,9 @@
 # Changelog
 
+#### v0.3.2 `2018-11-29`
+- `Fixed`
+    - Added expired date in unix timestamp for access tokens. See [#11](https://github.com/jonathantorres/medium-sdk-php/pull/11)
+
 #### v0.3.1 `2018-03-22`
 - `Fixed`
     - Convert Guzzle's `GuzzleHttp\Psr7\Stream` to a string so it can be decoded. See [#9](https://github.com/jonathantorres/medium-sdk-php/pull/9)
