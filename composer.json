@@ -27,11 +27,6 @@
             "JonathanTorres\\MediumSdk\\Tests\\": "tests/"
         }
     },
-    "config": {
-        "platform": {
-            "php": "5.5"
-        }
-    },
     "minimum-stability": "stable",
     "scripts": {
         "test": "phpunit"
