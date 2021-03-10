@@ -20,7 +20,7 @@ class MediumTest extends TestCase
         'scopes' => 'scope1,scope2',
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->medium = new Medium();
         $this->mediumClient = Mockery::mock('JonathanTorres\MediumSdk\Client');

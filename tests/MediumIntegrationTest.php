@@ -11,7 +11,7 @@ class MediumIntegrationTest extends TestCase
     protected $authorId = '147563c42ee920bd60ef3e19d8d8e0001310828c192e0297e06ad991fad843b0d';
     protected $publicationId = 'b45573563f5a';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->medium = new Medium(getenv('MEDIUM_TOKEN'));
     }
