@@ -1,5 +1,9 @@
 # Changelog
 
+#### v0.4.0 `2022-08-31`
+- `Added`
+    - Support for PHP7 only
+
 #### v0.3.2 `2018-11-29`
 - `Fixed`
     - Added expired date in unix timestamp for access tokens. See [#11](https://github.com/jonathantorres/medium-sdk-php/pull/11)
