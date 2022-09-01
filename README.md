@@ -1,6 +1,6 @@
 Medium SDK for PHP
 ================
-[![Build Status](https://app.travis-ci.com/jonathantorres/medium-sdk-php.svg?branch=master)](https://app.travis-ci.com/jonathantorres/medium-sdk-php)
+[![Tests](https://github.com/jonathantorres/medium-sdk-php/actions/workflows/tests.yml/badge.svg)](https://github.com/jonathantorres/medium-sdk-php/actions/workflows/tests.yml)
 [![Version](https://img.shields.io/packagist/v/jonathantorres/medium-sdk.svg)](https://packagist.org/packages/jonathantorres/medium-sdk)
 
 Open source SDK for integrating [Medium](https://medium.com)'s OAuth2 API into your PHP application. Please note that Medium's API is still on an early stage and this implementation is not final. Breaking changes will happen. This SDK is unofficial. Medium's API documentation can be found [here](https://github.com/Medium/medium-api-docs).
