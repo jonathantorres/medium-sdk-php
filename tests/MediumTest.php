@@ -20,13 +20,13 @@ class MediumTest extends TestCase
         'scopes' => 'scope1,scope2',
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->medium = new Medium();
         $this->mediumClient = Mockery::mock('JonathanTorres\MediumSdk\Client');
     }
 
-    public function testConnectToApiInConstructor()
+    public function testConnectToApiInConstructor(): void
     {
         $medium = new Medium($this->credentials);
 
@@ -34,7 +34,7 @@ class MediumTest extends TestCase
         $this->assertEquals('CLIENT-SECRET', $medium->getClientSecret());
     }
 
-    public function testConnectToApiWithConnectMethod()
+    public function testConnectToApiWithConnectMethod(): void
     {
         $medium = new Medium();
         $medium->connect($this->credentials);
@@ -43,7 +43,7 @@ class MediumTest extends TestCase
         $this->assertEquals('CLIENT-SECRET', $medium->getClientSecret());
     }
 
-    public function testConnectToApiInConstructorUsingSelfIssuedAccessToken()
+    public function testConnectToApiInConstructorUsingSelfIssuedAccessToken(): void
     {
         $medium = new Medium('SELF-ISSUED-ACCESS-TOKEN');
 
@@ -51,7 +51,7 @@ class MediumTest extends TestCase
         $this->assertEquals('SELF-ISSUED-ACCESS-TOKEN', $medium->getAccessToken());
     }
 
-    public function testConnectToApiWithConnectMethodUsingSelfIssuedAccessToken()
+    public function testConnectToApiWithConnectMethodUsingSelfIssuedAccessToken(): void
     {
         $this->medium->connect('SELF-ISSUED-ACCESS-TOKEN');
 
@@ -59,7 +59,7 @@ class MediumTest extends TestCase
         $this->assertEquals('SELF-ISSUED-ACCESS-TOKEN', $this->medium->getAccessToken());
     }
 
-    public function testGetAuthenticationUrl()
+    public function testGetAuthenticationUrl(): void
     {
         $this->medium->connect($this->credentials);
 
@@ -72,7 +72,7 @@ class MediumTest extends TestCase
         $this->assertEquals($expectedUrl, $authenticationUrl);
     }
 
-    public function testAuthentication()
+    public function testAuthentication(): void
     {
         $this->authenticationMocks();
 
@@ -83,7 +83,7 @@ class MediumTest extends TestCase
         $this->assertEquals('ACCESS-TOKEN', $this->medium->getAccessToken());
     }
 
-    public function testGetRefreshToken()
+    public function testGetRefreshToken(): void
     {
         $this->mediumClient->shouldReceive('exchangeRefreshToken')->once()
                            ->with('1234567890', 'CLIENT-ID', 'CLIENT-SECRET')
@@ -97,7 +97,7 @@ class MediumTest extends TestCase
         $this->assertEquals('NEW-ACCESS-TOKEN', $accessToken);
     }
 
-    public function testGetAuthenticatedUser()
+    public function testGetAuthenticatedUser(): void
     {
         $this->authenticationMocks();
         $this->mediumClient->shouldReceive('makeRequest')->once()
@@ -111,7 +111,7 @@ class MediumTest extends TestCase
         $this->assertNotNull($user);
     }
 
-    public function testGetUserPublications()
+    public function testGetUserPublications(): void
     {
         $this->authenticationMocks();
         $this->mediumClient->shouldReceive('makeRequest')->once()
@@ -125,7 +125,7 @@ class MediumTest extends TestCase
         $this->assertNotNull($publications);
     }
 
-    public function testGetPublicationContributors()
+    public function testGetPublicationContributors(): void
     {
         $this->authenticationMocks();
         $this->mediumClient->shouldReceive('makeRequest')->once()
@@ -139,7 +139,7 @@ class MediumTest extends TestCase
         $this->assertNotNull($contributors);
     }
 
-    public function testCreateUserPost()
+    public function testCreateUserPost(): void
     {
         $postData = [
             'title' => 'Post title',
@@ -162,7 +162,7 @@ class MediumTest extends TestCase
         $this->assertNotNull($post);
     }
 
-    public function testCreateUserPostUnderAPublication()
+    public function testCreateUserPostUnderAPublication(): void
     {
         $postData = [
             'title' => 'Post title',
@@ -185,7 +185,7 @@ class MediumTest extends TestCase
         $this->assertNotNull($post);
     }
 
-    public function testUploadImage()
+    public function testUploadImage(): void
     {
         $requestData = [
             'multipart' => [
@@ -209,7 +209,7 @@ class MediumTest extends TestCase
         $this->assertNotNull($image);
     }
 
-    private function authenticationMocks()
+    private function authenticationMocks(): void
     {
         $tokens = new StdClass();
         $tokens->access_token = 'ACCESS-TOKEN';

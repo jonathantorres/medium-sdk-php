@@ -11,12 +11,12 @@ class MediumIntegrationTest extends TestCase
     protected $authorId = '147563c42ee920bd60ef3e19d8d8e0001310828c192e0297e06ad991fad843b0d';
     protected $publicationId = 'b45573563f5a';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->medium = new Medium(getenv('MEDIUM_TOKEN'));
     }
 
-    public function testGetAuthenticatedUser()
+    public function testGetAuthenticatedUser(): void
     {
         $user = $this->medium->getAuthenticatedUser();
 
@@ -24,14 +24,14 @@ class MediumIntegrationTest extends TestCase
         $this->assertTrue(isset($user->data->id));
     }
 
-    public function testGetUserPublications()
+    public function testGetUserPublications(): void
     {
         $publications = $this->medium->publications($this->authorId);
 
         $this->assertTrue(isset($publications->data));
     }
 
-    public function testGetPublicationContributors()
+    public function testGetPublicationContributors(): void
     {
         $contributors = $this->medium->contributors($this->publicationId);
 
@@ -41,7 +41,7 @@ class MediumIntegrationTest extends TestCase
         $this->assertTrue(isset($contributors->data[0]->role));
     }
 
-    public function testCreateUserPost()
+    public function testCreateUserPost(): void
     {
         $data = [
             'title' => 'Post created from Medium SDK Integration Test',
@@ -64,7 +64,7 @@ class MediumIntegrationTest extends TestCase
         $this->assertTrue(isset($post->data->tags));
     }
 
-    public function testUploadImage()
+    public function testUploadImage(): void
     {
         $image = fopen(__DIR__ . '/zebra.png', 'r');
         $upload = $this->medium->uploadImage($image, 'my_zebra.png');
