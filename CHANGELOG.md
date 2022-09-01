@@ -1,5 +1,9 @@
 # Changelog
 
+#### v0.5.0 `2022-09-01`
+- `Added`
+    - Support for PHP8 only
+
 #### v0.4.0 `2022-08-31`
 - `Added`
     - Support for PHP7 only
