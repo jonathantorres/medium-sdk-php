@@ -1,5 +1,9 @@
 # Changelog
 
+#### v0.5.1 `2022-09-02`
+- `Fixed`
+    - Bumped Guzzle to version 7 to resolve dependency issues
+
 #### v0.5.0 `2022-09-01`
 - `Added`
     - Support for PHP8 only
